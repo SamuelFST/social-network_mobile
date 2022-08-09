@@ -11,7 +11,12 @@ interface Props {
 }
 
 export default function LoginScreen({ navigation }: Props) {
-  const { login } = useContext(AuthContext);
+  const { errorMessage, clearErrorMessage, login } = useContext(AuthContext);
+
+  const handleRegisterClick = () => {
+    clearErrorMessage && clearErrorMessage();
+    navigation.navigate('Register');
+  }
 
   return (
     <View style={styles.container}>
@@ -19,13 +24,18 @@ export default function LoginScreen({ navigation }: Props) {
         submitButtonText="Login"
         onSubmit={login}
       />
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+      <TouchableOpacity onPress={() => handleRegisterClick()}>
         <Spacer>
           <Text style={styles.link}>
             Não tem uma conta? Faça o cadastro
           </Text>
         </Spacer>
       </TouchableOpacity>
+      {errorMessage && (
+        <Spacer>
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        </Spacer>
+      )}
     </View>
   );
 }
@@ -41,5 +51,9 @@ const styles = StyleSheet.create({
   link: {
     color: "blue",
     textAlign: "center",
+  },
+  errorText: {
+    textAlign: "center",
+    color: "red",
   },
 });
