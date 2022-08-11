@@ -7,11 +7,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/ResgiterScreen';
-import HomeScreen from './screens/HomeScreen';
-import PostScreen from './screens/PostScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ProfilesScreen from './screens/ProfilesScreen';
-import NewPostScreen from './screens/NewPostScreen';
+import HomeNavigationScreen from './screens/HomeNavigationScreen';
 
 import { Context as AuthContext, Provider as AuthProvider } from './context/AuthContext';
 import { navigationRef } from './RootNavigation';
@@ -57,7 +55,7 @@ const App = () => {
               headerShown: false,
             })}
           >
-            <Tab.Screen name='Home' component={HomeScreen} />
+            <Tab.Screen name='Home' component={HomeNavigationScreen} />
             <Tab.Screen name='Profiles' component={ProfilesScreen} />
             <Tab.Screen name='Profile' component={ProfileScreen} />
           </Tab.Navigator>
