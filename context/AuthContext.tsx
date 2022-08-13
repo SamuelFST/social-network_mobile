@@ -4,15 +4,11 @@ import * as SecureStore from "expo-secure-store";
 
 import axios from "../api/axios";
 import { navigate } from "../RootNavigation";
+import { Action } from "../models/Action";
 
 interface TokenUser {
   profile: string;
   user: string;
-}
-
-interface Action {
-  type: string;
-  payload?: any;
 }
 
 interface IAuthContext {
@@ -46,7 +42,12 @@ const Provider = ({ children }: { children: ReactElement }) => {
   const reducer = (state: any, action: Action) => {
     switch(action.type) {
       case "login": {
-        return { ...state, ...action.payload, errorMessage: null, isLoading: false };
+        return {
+          ...state,
+          ...action.payload,
+          errorMessage: null,
+          isLoading: false
+        };
       }
       case "user_created": {
         return { ...state, errorMessage: null };
