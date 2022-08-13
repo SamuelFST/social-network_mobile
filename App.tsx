@@ -12,6 +12,7 @@ import ProfilesScreen from './screens/ProfilesScreen';
 import HomeNavigationScreen from './screens/HomeNavigationScreen';
 
 import { Context as AuthContext, Provider as AuthProvider } from './context/AuthContext';
+import { Provider as PostProvider } from './context/PostContext';
 import { navigationRef } from './RootNavigation';
 
 const Stack = createNativeStackNavigator();
@@ -40,7 +41,7 @@ const App = () => {
           <Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({ color, size }) => {
-                switch(route.name) {
+                switch (route.name) {
                   case "Home": {
                     return (<MaterialIcons name='home' size={size} color={color} />);
                   }
@@ -67,6 +68,8 @@ const App = () => {
 
 export default () => (
   <AuthProvider>
-    <App />
+    <PostProvider>
+      <App />
+    </PostProvider>
   </AuthProvider>
 )
