@@ -1,34 +1,53 @@
-import React, { useContext, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import InfiniteScroll from "react-native-infinite-scrolling";
 
 import PostItem from "../components/PostItem";
+import { Post } from "../models/Post";
 import { Context as PostContext } from "../context/PostContext";
 
-export default function PostListScreen() {
+interface Props {
+  navigation: any;
+}
+
+export default function PostListScreen({ navigation }: Props) {
   const { posts, errorMessage, getPosts } = useContext(PostContext);
+  const [actualPage, setActualPage] = useState(0);
 
   useEffect(() => {
-    getPosts();
-  }, []);
+    getPosts && getPosts({ page: actualPage });
+  }, [actualPage]);
+
+  const renderData = ({ item }: { item: Post }) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate("PostDetail", { id: item._id })}
+      >
+        <PostItem post={item} />
+      </TouchableOpacity>
+    );
+  };
+
+  const loadMore = () => {
+    setActualPage(page => page + 1);
+  };
 
   return (
-    <View>
+    <>
       {errorMessage ?
         (
           <View style={styles.errorContainer}>
             <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
           </View>
         ) : (
-          <FlatList
-            data={posts}
-            keyExtractor={({ _id }) => _id}
-            renderItem={({ item }) => (
-              <PostItem post={item} />
-            )}
-          />
+            <InfiniteScroll
+              data={posts}
+              renderData={renderData}
+              loadMore={loadMore}
+            />
         )
       }
-    </View>
+    </>
   );
 }
 
