@@ -1,4 +1,4 @@
-import React, { ReactElement, useReducer } from "react";
+import React, { ReactElement, useReducer, useContext } from "react";
 import jwtDecode from "jwt-decode";
 import * as SecureStore from "expo-secure-store";
 
@@ -18,6 +18,7 @@ interface IAuthContext {
   errorMessage?: string | null;
   isLoading: boolean;
   login?: () => void;
+  logout?: () => void;
   clearErrorMessage?: () => void;
   register?: () => void;
   tryLocalLogin?: () => void;
@@ -47,6 +48,14 @@ const Provider = ({ children }: { children: ReactElement }) => {
           ...action.payload,
           errorMessage: null,
           isLoading: false
+        };
+      }
+      case "logout": {
+        return {
+          token: null,
+          profile: null,
+          user: null,
+          errorMessage: null,
         };
       }
       case "user_created": {
@@ -90,6 +99,17 @@ const Provider = ({ children }: { children: ReactElement }) => {
     }
   };
 
+  const logout = (dispatch: any) => async () => {
+    try {
+      await SecureStore.deleteItemAsync("token");
+      await SecureStore.deleteItemAsync("user");
+      await SecureStore.deleteItemAsync("profile");
+      dispatch({ type: "logout" });
+    } catch (err) {
+
+    }
+  }
+
   const register  =
     (dispatch: any) =>
     async ({ user, password }: Login) => {
@@ -128,6 +148,7 @@ const Provider = ({ children }: { children: ReactElement }) => {
       value={{
         ...state,
         login: login(dispatch),
+        logout: logout(dispatch),
         clearErrorMessage: clearErrorMessage(dispatch),
         register: register(dispatch),
         tryLocalLogin: tryLocalLogin(dispatch),
