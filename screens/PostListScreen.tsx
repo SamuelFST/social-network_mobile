@@ -40,11 +40,11 @@ export default function PostListScreen({ navigation }: Props) {
             <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
           </View>
         ) : (
-            <InfiniteScroll
-              data={posts}
-              renderData={renderData}
-              loadMore={loadMore}
-            />
+          <InfiniteScroll
+            data={posts}
+            renderData={renderData}
+            loadMore={loadMore}
+          />
         )
       }
     </>

@@ -37,7 +37,7 @@ export default function NewPostScreen() {
           <Spacer />
           <Button
             title="Publicar"
-            onPress={() => {createPost && createPost({ title, description, image })}}
+            onPress={() => { createPost && createPost({ title, description, image }) }}
           />
         </>
       </Spacer>

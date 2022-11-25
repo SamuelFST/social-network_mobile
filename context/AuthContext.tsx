@@ -41,7 +41,7 @@ const Context = React.createContext<IAuthContext>(defaultValue);
 
 const Provider = ({ children }: { children: ReactElement }) => {
   const reducer = (state: any, action: Action) => {
-    switch(action.type) {
+    switch (action.type) {
       case "login": {
         return {
           ...state,
@@ -110,21 +110,21 @@ const Provider = ({ children }: { children: ReactElement }) => {
     }
   }
 
-  const register  =
+  const register =
     (dispatch: any) =>
-    async ({ user, password }: Login) => {
-      try {
-        await axios.post('/security/register', {
-          user,
-          password,
-        });
+      async ({ user, password }: Login) => {
+        try {
+          await axios.post('/security/register', {
+            user,
+            password,
+          });
 
-        dispatch({ type: "user_created" });
-        navigate("Login");
-      } catch (err) {
-        dispatch({ type: "add_error", payload: "Ocorreu um erro ao fazer o cadastro" });
+          dispatch({ type: "user_created" });
+          navigate("Login");
+        } catch (err) {
+          dispatch({ type: "add_error", payload: "Ocorreu um erro ao fazer o cadastro" });
+        }
       }
-    }
 
   const clearErrorMessage = (dispatch: any) => () => {
     dispatch({ type: "clear_error_message" });

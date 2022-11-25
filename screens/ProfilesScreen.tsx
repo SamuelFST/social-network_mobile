@@ -70,7 +70,7 @@ export default function ProfilesScreen() {
     <View style={styles.container}>
       <FlatList
         data={profiles}
-        keyExtractor={({ _id }) => _id }
+        keyExtractor={({ _id }) => _id}
         renderItem={({ item }) => (
           <Card>
             <View style={styles.cardHeaderStyle}>

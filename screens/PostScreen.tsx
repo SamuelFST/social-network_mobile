@@ -66,40 +66,40 @@ export default function PostScreen({ route }: Props) {
     <>
       {post ? (
         <KeyboardAvoidingView>
-            <PostItem post={post} />
-            <Spacer>
-              <>
-                <Divider />
-                <Text h4 style={{ marginTop: 6 }}>Comentários</Text>
-                <Input
-                  label="Novo comentário"
-                  value={description}
-                  onChangeText={setDescription}
-                  autoCorrect={false}
-                />
-                <Button
-                  title="Publicar"
-                  onPress={() => {
-                    setDescription("");
-                    addComment();
-                  }}
-                />
-                <FlatList
+          <PostItem post={post} />
+          <Spacer>
+            <>
+              <Divider />
+              <Text h4 style={{ marginTop: 6 }}>Comentários</Text>
+              <Input
+                label="Novo comentário"
+                value={description}
+                onChangeText={setDescription}
+                autoCorrect={false}
+              />
+              <Button
+                title="Publicar"
+                onPress={() => {
+                  setDescription("");
+                  addComment();
+                }}
+              />
+              <FlatList
                 nestedScrollEnabled
-                  style={styles.commentsContainer}
-                  data={post.comments}
-                  keyExtractor={({ _id }) => _id}
-                  renderItem={({ item }) => {
-                    return (
-                      <View style={styles.comment}>
-                        <CustomAvatar name={item.profile.name} />
-                        <Text style={styles.commentText}>{item.description}</Text>
-                      </View>
-                    );
-                  }}
-                />
-              </>
-            </Spacer>
+                style={styles.commentsContainer}
+                data={post.comments}
+                keyExtractor={({ _id }) => _id}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={styles.comment}>
+                      <CustomAvatar name={item.profile.name} />
+                      <Text style={styles.commentText}>{item.description}</Text>
+                    </View>
+                  );
+                }}
+              />
+            </>
+          </Spacer>
         </KeyboardAvoidingView>
       ) : (null)}
     </>

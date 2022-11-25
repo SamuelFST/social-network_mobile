@@ -13,9 +13,9 @@ export default function FavoriteIconButton({ liked, handleLike }: Props) {
   return (
     <CustomIconButton handleOnPress={handleLike}>
       {liked ? (
-        <MaterialIcons name="favorite" size={ 24 } color="red" />
+        <MaterialIcons name="favorite" size={24} color="red" />
       ) : (
-        <MaterialIcons name="favorite-border" size={ 24 } />
+        <MaterialIcons name="favorite-border" size={24} />
       )}
     </CustomIconButton>
   );
